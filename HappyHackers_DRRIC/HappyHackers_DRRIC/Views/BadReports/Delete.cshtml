@@ -1,0 +1,15 @@
+﻿@model BadReports
+
+@{ 
+    ViewBag.Title = "Delete Licensee";
+}
+
+<h2>Confirm Deletion of Wallet Address and Transaction Hash</h2>
+<h3>@Model.CoinAddress @Model.Hash</h3>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="uid" />
+
+    <button type="submit" class="btn btn-primary">Delete</button>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Cancel</a>
+</form>

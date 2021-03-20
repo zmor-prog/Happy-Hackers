@@ -1,0 +1,63 @@
+﻿@model List<BadReports>
+@{
+    ViewBag.Title = "Bad Reports";
+}
+
+<div class="container">
+    <p>Type in search the list for specific items:</p>
+    <input class="form-control" id="myInput" type="text" placeholder="Search for address.."><br />
+    <a asp-controller="BadReports" asp-action="Add">Add new address</a><br />
+    <div class="table-responsive" style="font-size: 12px">
+        <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Posting Licensee</th>
+                    <th>Wallet Address</th>
+                    <th>Transaction Hash</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Owner DOB</th>
+                    <th>Category</th>
+                    <th>Cryptocurrency Used</th>
+                    <th>IP Address</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                @foreach (var badreports in Model)
+                {
+                <tr>
+                    @if (!(badreports.PostingLicensee == null))
+                        {
+                    <td>@badreports.PostingLicensee.LicenseeName</td>
+
+                        }
+                    <td>@badreports.CoinAddress</td>
+                    <td>@badreports.Hash</td>
+                    <td>@badreports.FirstName</td>
+                    <td>@badreports.LastName</td>
+                    <td>@badreports.DOB</td>
+                    @if (!(badreports.Category == null))
+                        {
+                    <td>@badreports.Category.Crime</td>
+
+                        }
+                    @if (!(badreports.Cryptocurrency == null))
+                        {
+                    <td>@badreports.Cryptocurrency.Code</td>
+                        }
+                    <td>@badreports.IPAddress</td>
+                    <td>
+                        <a asp-controller="BadReports" asp-action="Edit" asp-route-id="@badreports.uid">Edit</a>
+                        <a asp-controller="BadReports" asp-action="Delete" asp-route-id="@badreports.uid">Delete</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <a id="downloadLink" onclick="exportF(this)">Click here and export to CSV</a>
+</div>
+
+
+
